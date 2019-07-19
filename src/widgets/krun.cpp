@@ -69,6 +69,8 @@
 #include <kjobwidgets.h>
 #include <ksharedconfig.h>
 
+#include "mountserviced_interface.h"
+
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
@@ -503,15 +505,23 @@ static QList<QUrl> resolveURLs(const QList<QUrl> &_urls, const KService &_servic
             const QUrl url = *it;
             bool supported = KIO::DesktopExecParser::isProtocolInSupportedList(url, appSupportedProtocols);
             //qDebug() << "Looking at url=" << url << " supported=" << supported;
-            if (!supported && KProtocolInfo::protocolClass(url.scheme()) == QLatin1String(":local")) {
-                // Maybe we can resolve to a local URL?
-                KIO::StatJob *job = KIO::mostLocalUrl(url);
-                if (job->exec()) { // ## nasty nested event loop!
-                    const QUrl localURL = job->mostLocalUrl();
-                    if (localURL != url) {
-                        *it = localURL;
-                        //qDebug() << "Changed to" << localURL;
+            if (!supported) {
+                if (KProtocolInfo::protocolClass(url.scheme()) == QLatin1String(":local")) {
+                    // Maybe we can resolve to a local URL?
+                    KIO::StatJob *job = KIO::mostLocalUrl(url);
+                    if (job->exec()) { // ## nasty nested event loop!
+                        const QUrl localURL = job->mostLocalUrl();
+                        if (localURL != url) {
+                            *it = localURL;
+                            qDebug() << "Changed to" << localURL;
+                        }
                     }
+                } else {
+                    org::kde::kio::MountServiceManager kded(QStringLiteral("org.kde.kded5"), QStringLiteral("/modules/mountservicemanager"), QDBusConnection::sessionBus());
+                    auto reply = kded.localURL(url.toString());
+                    reply.waitForFinished();
+                    *it = QUrl::fromLocalFile(reply.value());
+                    qDebug() << "kio.fuse.url" << QUrl::fromLocalFile(reply.value());
                 }
             }
         }

@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+Icon=fuse
+Exec=kcmshell5 fusemanager
+
+X-KDE-Library=kcm_kio
+X-KDE-PluginKeyword=fusemanager
+X-KDE-ParentApp=kcontrol
+
+X-KDE-System-Settings-Parent-Category=networksettings
+X-KDE-Weight=90
+
+Name=Fuse Manager
+Comment=Sets fuse mount service for KIO protocols
+X-KDE-Keywords=Fuse;FuseManager
+

@@ -2,6 +2,7 @@
 add_subdirectory( uasproviders )
 
 find_package(KF5TextWidgets ${KF5_DEP_VERSION} REQUIRED)
+find_package(KDED CONFIG REQUIRED)
 
 ########### next target ###############
 
@@ -18,6 +19,7 @@ set(kcm_kio_PART_SRCS
     useragentselectordlg.cpp
     netpref.cpp
     cache.cpp
+    fusemanager.cpp
     ksaveioconfig.cpp)
 
 ki18n_wrap_ui(kcm_kio_PART_SRCS
@@ -27,7 +29,12 @@ ki18n_wrap_ui(kcm_kio_PART_SRCS
     kproxydlg.ui
     kcookiespolicies.ui
     kcookiesmanagement.ui
-    kcookiespolicyselectiondlg.ui)
+    kcookiespolicyselectiondlg.ui
+    fusemanager.ui
+    fuseserviceselector.ui)
+
+qt5_add_dbus_interface(kcm_kio_PART_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/../../mountserviced/org.kde.kio.MountServiceManager.xml mountserviced_interface)
+qt5_add_dbus_interface(kcm_kio_PART_SRCS ${KDED_DBUS_INTERFACE} kded_interface)
 
 add_library(kcm_kio MODULE ${kcm_kio_PART_SRCS})
 
@@ -51,5 +58,5 @@ install(TARGETS kcm_kio  DESTINATION ${KDE_INSTALL_PLUGINDIR} )
 ########### install files ###############
 
 install( FILES smb.desktop cookies.desktop useragent.desktop cache.desktop
-    netpref.desktop proxy.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR} )
+    netpref.desktop proxy.desktop fusemanager.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR} )
 install( FILES uasprovider.desktop  DESTINATION  ${KDE_INSTALL_KSERVICETYPES5DIR} )

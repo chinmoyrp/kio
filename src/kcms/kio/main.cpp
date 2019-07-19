@@ -33,6 +33,7 @@
 #include "useragentdlg.h"
 #include "kproxydlg.h"
 #include "cache.h"
+#include "fusemanager.h"
 
 K_PLUGIN_FACTORY(KioConfigFactory,
         registerPlugin<UserAgentDlg>(QStringLiteral("useragent"));
@@ -41,6 +42,7 @@ K_PLUGIN_FACTORY(KioConfigFactory,
         registerPlugin<KProxyDialog>(QStringLiteral("proxy"));
         registerPlugin<KCookiesMain>(QStringLiteral("cookie"));
         registerPlugin<CacheConfigModule>(QStringLiteral("cache"));
+        registerPlugin<FuseManager>(QStringLiteral("fusemanager"));
 	)
 
 #include "main.moc"

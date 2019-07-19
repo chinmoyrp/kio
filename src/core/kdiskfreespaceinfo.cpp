@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  kdiskfreespaceinfo.h
  *
  *  Copyright 2008 Sebastian Trug <trueg@kde.org>

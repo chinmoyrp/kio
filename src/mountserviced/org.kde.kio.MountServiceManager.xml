@@ -1,0 +1,22 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.kio.MountServiceManager">
+    <signal name="availableServicesChanged">
+      <arg name="services" type="as" direction="out"/>
+    </signal>
+    <method name="availableServices">
+      <arg type="as" direction="out"/>
+    </method>
+    <method name="mountURL">
+      <arg name="remoteURL" type="s" direction="in"/>
+    </method>
+    <method name="localURL">
+      <arg type="s" direction="out"/>
+      <arg name="remoteURL" type="s" direction="in"/>
+    </method>
+    <method name="setAuthority">
+      <arg name="remoteURL" type="s" direction="in"/>
+      <arg name="auth" type="s" direction="in"/>
+    </method>
+  </interface>
+</node>

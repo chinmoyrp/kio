@@ -348,7 +348,7 @@ void FileProtocol::copy(const QUrl &srcUrl, const QUrl &destUrl,
     src_file.close();
     dest_file.close();
 
-    if (dest_file.error() != QFile::NoError) {
+    if (dest_file.error() != QFile::NoError && dest_file.isOpen()) {
         qCWarning(KIO_FILE) << "Error when closing file descriptor[2]:" << dest_file.errorString();
         error(KIO::ERR_CANNOT_WRITE, dest);
 #if HAVE_POSIX_ACL

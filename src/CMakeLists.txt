@@ -16,6 +16,7 @@ add_subdirectory(filewidgets)
 add_subdirectory(kioexec)
 add_subdirectory(urifilters)
 add_subdirectory(kcms)
+add_subdirectory(mountserviced)
 
 if(NOT WIN32 AND NOT ANDROID)
   # arpa/nameser.h

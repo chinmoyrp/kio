@@ -742,7 +742,7 @@ void FileProtocol::put(const QUrl &url, int _mode, KIO::JobFlags _flags)
 
     f.close();
 
-    if (f.error() != QFile::NoError) {
+    if (f.error() != QFile::NoError && f.isOpen()) {
         qCWarning(KIO_FILE) << "Error when closing file descriptor:" << f.errorString();
         error(KIO::ERR_CANNOT_WRITE, dest_orig);
         return;

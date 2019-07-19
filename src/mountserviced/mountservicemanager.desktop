@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+Name=Mount Service Manager
+X-KDE-ServiceTypes=KDEDModule
+X-KDE-Library=mountservicemanager
+X-KDE-FactoryName=mountservicemanager
+X-KDE-Kded-load-on-demand=true
+X-KDE-Kded-autoload=true
+Comment=Manages kded modules that provide mounting capabilities for remote protocols.
